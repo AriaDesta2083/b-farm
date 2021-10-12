@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pendapatan;
+use App\Models\Pengingat;
 use Illuminate\Http\Request;
 
 class PendapatanController extends Controller
@@ -49,10 +50,12 @@ class PendapatanController extends Controller
             'pendapatan' => 'Pendapatan'
         ]);
 
+        $totalBarang = Pengingat::select(\DB::raw('SUM(harga) AS total'))->first()->total;
+
         $newPendapatan = new Pendapatan;
         $newPendapatan->tanggal = $request->tanggal;
         $newPendapatan->pendapatan = $request->pendapatan;
-        $newPendapatan->keuntungan = $request->pendapatan;
+        $newPendapatan->keuntungan = $request->pendapatan - $totalBarang;
 
         $newPendapatan->save();
 
