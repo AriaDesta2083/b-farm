@@ -42,14 +42,14 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <a class="collapse-item" href="{{ route('pengingat.index') }}">Pengingat</a>
           <a class="collapse-item" href="{{ route('pendapatan.index') }}">Pendapatan</a>
-          <a class="collapse-item" href="#">Riwayat</a>
+          <a class="collapse-item" href="{{ route('riwayat.index') }}">Riwayat</a>
         </div>
       </div>
     </li>
 
     <!-- Nav Item - Ubah Link Menu -->
-    <li class="nav-item">
-      <a class="nav-link" href="#">
+    <li class="nav-item {{ Request::segment(1) == 'web-profile' ? 'active' : '' }}">
+      <a class="nav-link" href="{{ route('web-profile.index') }}">
         <i class="fas fa-fw fa-link"></i>
         <span>Ubah Link</span></a>
     </li>

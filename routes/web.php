@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\PendapatanController;
 use App\Http\Controllers\PengingatController;
+use App\Http\Controllers\WebProfileController;
+use App\Http\Controllers\RiwayatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +32,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('pengingat', PengingatController::class);
         Route::resource('pendapatan', PendapatanController::class);
     });
+
+    Route::get('web-profile', [WebProfileController::class, 'index'])->name('web-profile.index');
+    Route::put('web-profile', [WebProfileController::class, 'update'])->name('web-profile.update');
+    Route::get('riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
+    Route::get('riwayat-get', [RiwayatController::class, 'show'])->name('riwayat.show');
 });
 
 require __DIR__.'/auth.php';
