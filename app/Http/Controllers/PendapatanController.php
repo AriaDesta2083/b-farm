@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pendapatan;
 use App\Models\Pengingat;
+use App\Models\Riwayat;
 use Illuminate\Http\Request;
 
 class PendapatanController extends Controller
@@ -50,7 +51,7 @@ class PendapatanController extends Controller
             'pendapatan' => 'Pendapatan'
         ]);
 
-        $totalBarang = Pengingat::select(\DB::raw('SUM(harga) AS total'))->first()->total;
+        $totalBarang = Pengingat::select(\DB::raw('SUM(harga / deadline * 4) AS total'))->first()->total;
 
         $newPendapatan = new Pendapatan;
         $newPendapatan->tanggal = $request->tanggal;
@@ -58,6 +59,14 @@ class PendapatanController extends Controller
         $newPendapatan->keuntungan = $request->pendapatan - $totalBarang;
 
         $newPendapatan->save();
+
+        $newRiwayat = new Riwayat;
+        $newRiwayat->tanggal = $request->tanggal;
+        $newRiwayat->pendapatan = $request->pendapatan;
+        $newRiwayat->kebutuhan_produksi = $totalBarang;
+        $newRiwayat->keuntungan = $newPendapatan->keuntungan;
+
+        $newRiwayat->save();
 
         return redirect('kelola-keuangan/pendapatan')->withStatus('Berhasil menambah data.');
     }
