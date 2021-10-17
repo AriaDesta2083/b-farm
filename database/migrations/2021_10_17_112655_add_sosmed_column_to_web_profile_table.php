@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWebProfileTable extends Migration
+class AddSosmedColumnToWebProfileTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateWebProfileTable extends Migration
      */
     public function up()
     {
-        Schema::create('web_profile', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('link_wa', 100);
-            $table->timestamps();
+        Schema::table('web_profile', function (Blueprint $table) {
+            $table->string('ig', 50)->after('no_hp');
         });
     }
 
@@ -27,6 +25,8 @@ class CreateWebProfileTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('web_profile');
+        Schema::table('web_profile', function (Blueprint $table) {
+            $table->dropColumn('ig');
+        });
     }
 }

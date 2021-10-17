@@ -26,6 +26,30 @@
                             {{ $message }}
                         </div>
                     @enderror
+                    <br>
+                    <label for="no_hp">No. Handphone</label>
+                    <input type="number" name="no_hp" id="no_hp" class="form-control mt-2 @error('no_hp') is-invalid @enderror" placeholder="ex : 62xxxxxxxxxxx" value="{{ old('no_hp', $profile->no_hp) }}">
+                    @error('no_hp')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                    @enderror
+                    <br>
+                    <label for="alamat">Alamat</label>
+                    <input type="text" name="alamat" id="alamat" class="form-control mt-2 @error('alamat') is-invalid @enderror" placeholder="ex : Jalan Gatxxx" value="{{ old('alamat', $profile->alamat) }}">
+                    @error('alamat')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                    @enderror
+                    <br>
+                    <label for="ig">Instagram</label>
+                    <input type="text" name="ig" id="ig" class="form-control mt-2 @error('ig') is-invalid @enderror" placeholder="ex : befarm" value="{{ old('ig', $profile->ig) }}">
+                    @error('ig')
+                        <div class="invalid-feedback">
+                          {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <input type="submit" value="Submit" class="btn btn-success">
                 <input type="reset" value="Reset" class="btn btn-danger">

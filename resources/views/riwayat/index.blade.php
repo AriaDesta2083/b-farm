@@ -56,10 +56,14 @@
               </div>
         </div>
           @if (isset($data))
+          @php
+          $date = DateTime::createFromFormat('Y-m-d', $data->tanggal);
+          $month = $date->format('Y-m');
+          @endphp
           <table class = "table table-bordered mt-5">
             <tr>
               <th>Tanggal</th>
-              <td>{{ $data->tanggal }}</td>
+              <td>{{ $month }}</td>
             </tr>
             <tr>
               <th>Pendapatan</th>

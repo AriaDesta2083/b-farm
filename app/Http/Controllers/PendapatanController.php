@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pendapatan;
 use App\Models\Pengingat;
 use App\Models\Riwayat;
+use DateTime;
 use Illuminate\Http\Request;
 
 class PendapatanController extends Controller
@@ -51,7 +52,7 @@ class PendapatanController extends Controller
             'pendapatan' => 'Pendapatan'
         ]);
 
-        $totalBarang = Pengingat::select(\DB::raw('SUM(harga / deadline * 4) AS total'))->first()->total;
+        $totalBarang = Pengingat::select(\DB::raw('SUM(harga / deadline) AS total'))->first()->total;
 
         $newPendapatan = new Pendapatan;
         $newPendapatan->tanggal = $request->tanggal;
@@ -60,13 +61,29 @@ class PendapatanController extends Controller
 
         $newPendapatan->save();
 
-        $newRiwayat = new Riwayat;
-        $newRiwayat->tanggal = $request->tanggal;
-        $newRiwayat->pendapatan = $request->pendapatan;
-        $newRiwayat->kebutuhan_produksi = $totalBarang;
-        $newRiwayat->keuntungan = $newPendapatan->keuntungan;
 
-        $newRiwayat->save();
+        $date = DateTime::createFromFormat('Y-m-d', $request->tanggal);
+        $month = $date->format('m');
+        $year = $date->format('Y');
+
+        $is4Month = Pendapatan::whereYear('tanggal', $year)->whereMonth('tanggal', $month)->count();
+
+        if($is4Month == 4) {
+            $totalBarangRiwayat = Pengingat::select(\DB::raw('SUM(harga / deadline * 4) AS total'))->first()->total;
+
+            $pendapatan = Pendapatan::select(\DB::raw('SUM(pendapatan) AS total_pendapatan'), \DB::raw('SUM(keuntungan) AS total_keuntungan'))
+                                    ->whereYear('tanggal', $year)
+                                    ->whereMonth('tanggal', $month)->first();
+
+            $newRiwayat = new Riwayat;
+            $newRiwayat->tanggal = $request->tanggal;
+            $newRiwayat->pendapatan = $pendapatan->total_pendapatan;
+            $newRiwayat->kebutuhan_produksi = $totalBarangRiwayat;
+            $newRiwayat->keuntungan = $pendapatan->total_keuntungan;
+    
+            $newRiwayat->save();    
+        }
+        
 
         return redirect('kelola-keuangan/pendapatan')->withStatus('Berhasil menambah data.');
     }

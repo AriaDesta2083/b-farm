@@ -3,7 +3,7 @@
 @php
 $year = date('Y');
 $month = date('m');
-$riwayatGraph = \App\Models\Riwayat::select('keuntungan')->whereYear('tanggal', $year)->get();
+$riwayatGraph = \App\Models\Riwayat::select(\DB::raw("DATE_FORMAT(tanggal,'%M') AS bulan"), 'keuntungan')->whereYear('tanggal', $year)->get();
 $keuntunganBulanan = \App\Models\Riwayat::select(\DB::raw('SUM(keuntungan) AS keuntungan'))->whereMonth('tanggal', $month)->first()->keuntungan;
 $keuntunganTahunan = \App\Models\Riwayat::select(\DB::raw('SUM(keuntungan) AS keuntungan'))->whereYear('tanggal', $year)->first()->keuntungan;
     
@@ -109,15 +109,17 @@ var data = @php echo $riwayatGraph @endphp;
 console.log('tes'+data.length);
 console.log('tes'+data[0].keuntungan);
 var arrData = [];
+var arrMonth = [];
 for(var i=0; i<data.length; i++) {
   arrData.push(data[i].keuntungan);
+  arrMonth.push(data[i].bulan);
 }
 console.log('tess'+data[0].keuntungan);
 console.log(arrData);
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: arrMonth,
     datasets: [{
       label: "Pendapatan",
       lineTension: 0.3,

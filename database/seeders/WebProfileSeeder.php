@@ -15,6 +15,9 @@ class WebProfileSeeder extends Seeder
     {
         $newProfile = new \App\Models\WebProfile;
         $newProfile->link_wa = '6285113223885';
+        $newProfile->alamat = 'Jember';
+        $newProfile->no_hp = '082234894079';
+        $newProfile->ig = 'aria17';
         $newProfile->save();
     }
 }
