@@ -20,7 +20,7 @@
                 @method('PUT')
                 <div class="form-group">
                     <label for="link_wa">Link Whatsapp</label>
-                    <input type="number" name="link_wa" id="link_wa" class="form-control @error('link_wa') is-invalid @enderror" placeholder="ex :6285118275xxx" value="{{ old('link_wa', $profile->link_wa) }}">
+                    <input type="number" name="link_wa" id="link_wa" class="form-control @error('link_wa') is-invalid @enderror" placeholder="ex :628xxxxxxxxxx" value="{{ old('link_wa', $profile->link_wa) }}">
                     @error('link_wa')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -28,7 +28,7 @@
                     @enderror
                     <br>
                     <label for="no_hp">No. Handphone</label>
-                    <input type="number" name="no_hp" id="no_hp" class="form-control mt-2 @error('no_hp') is-invalid @enderror" placeholder="ex : 62xxxxxxxxxxx" value="{{ old('no_hp', $profile->no_hp) }}">
+                    <input type="number" name="no_hp" id="no_hp" class="form-control mt-2 @error('no_hp') is-invalid @enderror" placeholder="ex : 08xxxxxxxxxx" value="{{ old('no_hp', $profile->no_hp) }}">
                     @error('no_hp')
                         <div class="invalid-feedback">
                           {{ $message }}
@@ -36,7 +36,7 @@
                     @enderror
                     <br>
                     <label for="alamat">Alamat</label>
-                    <input type="text" name="alamat" id="alamat" class="form-control mt-2 @error('alamat') is-invalid @enderror" placeholder="ex : Jalan Gatxxx" value="{{ old('alamat', $profile->alamat) }}">
+                    <input type="text" name="alamat" id="alamat" class="form-control mt-2 @error('alamat') is-invalid @enderror" placeholder="ex : Jalanxxx" value="{{ old('alamat', $profile->alamat) }}">
                     @error('alamat')
                         <div class="invalid-feedback">
                           {{ $message }}

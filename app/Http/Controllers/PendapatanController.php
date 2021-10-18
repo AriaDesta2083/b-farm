@@ -31,7 +31,6 @@ class PendapatanController extends Controller
     public function create()
     {
         return view('pendapatan.create');
-
     }
 
     /**
@@ -68,22 +67,22 @@ class PendapatanController extends Controller
 
         $is4Month = Pendapatan::whereYear('tanggal', $year)->whereMonth('tanggal', $month)->count();
 
-        if($is4Month == 4) {
+        if ($is4Month == 4) {
             $totalBarangRiwayat = Pengingat::select(\DB::raw('SUM(harga / deadline * 4) AS total'))->first()->total;
 
             $pendapatan = Pendapatan::select(\DB::raw('SUM(pendapatan) AS total_pendapatan'), \DB::raw('SUM(keuntungan) AS total_keuntungan'))
-                                    ->whereYear('tanggal', $year)
-                                    ->whereMonth('tanggal', $month)->first();
+                ->whereYear('tanggal', $year)
+                ->whereMonth('tanggal', $month)->first();
 
             $newRiwayat = new Riwayat;
             $newRiwayat->tanggal = $request->tanggal;
             $newRiwayat->pendapatan = $pendapatan->total_pendapatan;
             $newRiwayat->kebutuhan_produksi = $totalBarangRiwayat;
             $newRiwayat->keuntungan = $pendapatan->total_keuntungan;
-    
-            $newRiwayat->save();    
+
+            $newRiwayat->save();
         }
-        
+
 
         return redirect('kelola-keuangan/pendapatan')->withStatus('Berhasil menambah data.');
     }
@@ -130,13 +129,34 @@ class PendapatanController extends Controller
             'tanggal' => 'Tanggal',
             'pendapatan' => 'Pendapatan'
         ]);
-
+        $totalBarang = Pengingat::select(\DB::raw('SUM(harga / deadline) AS total'))->first()->total;
         $newPendapatan = Pendapatan::find($id);
+
         $newPendapatan->tanggal = $request->tanggal;
+        $counterawal = $newPendapatan->pendapatan;
         $newPendapatan->pendapatan = $request->pendapatan;
-        $newPendapatan->keuntungan = $request->pendapatan;
+        $newPendapatan->keuntungan = $request->pendapatan - $totalBarang;
 
         $newPendapatan->save();
+
+        $date = DateTime::createFromFormat('Y-m-d', $request->tanggal);
+        $month = $date->format('m');
+        $year = $date->format('Y');
+
+
+        $is4Month = Pendapatan::whereYear('tanggal', $year)->whereMonth('tanggal', $month)->count();
+
+        if ($is4Month == 4) {
+            $counter = $counterawal - $request->pendapatan;
+            $date = DateTime::createFromFormat('Y-m-d', $request->tanggal);
+            $month = $date->format('m');
+            $newRiwayat = Riwayat::whereMonth('tanggal', $month)->first();
+            $newRiwayat->pendapatan = $newRiwayat->pendapatan - $counter;
+            $newRiwayat->keuntungan = $newRiwayat->pendapatan - $newRiwayat->kebutuhan_produksi;
+
+            $newRiwayat->save();
+        }
+
 
         return redirect('kelola-keuangan/pendapatan')->withStatus('Berhasil memperbarui data.');
     }

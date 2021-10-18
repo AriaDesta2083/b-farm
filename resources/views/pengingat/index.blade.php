@@ -21,12 +21,16 @@
           </div>
           <!-- Card Body -->
           <div class="card-body">
-            @forelse ($pengingat as $item)
+            @forelse ($pengingat as $item)  
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-3 col-md-2 bg-primary rounded-left text-white p-4 my-2">
-                        <div class="col-12 text-center ">
-                            <h4>{{ $item->barang }}</h4>
+                        <div class="col-12 text-center mt-2">
+                            <h4>{{ strtoupper($item->barang )}}</h4>
                         </div>
+                        <div class="col-12 text-center ">
+                            <h5>Rp {{ number_format($item->harga , 2 , ',','.') }}</h5>
+                        </div>
+
                     </div>
                     <div class="col-lg-8 col-md-8 bg-light rounded-right p-4 my-2">
                         <div class="row">
