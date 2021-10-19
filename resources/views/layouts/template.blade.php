@@ -22,7 +22,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" style="background-color:#EEF1E0 !important;">
 
   <!-- Page Wrapper -->
   <div id="wrapper">

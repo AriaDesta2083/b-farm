@@ -14,10 +14,10 @@ class WebProfileSeeder extends Seeder
     public function run()
     {
         $newProfile = new \App\Models\WebProfile;
-        $newProfile->link_wa = '6285113223885';
-        $newProfile->alamat = 'Jember';
-        $newProfile->no_hp = '082234894079';
-        $newProfile->ig = 'aria17';
+        $newProfile->link_wa = '6281225121659';
+        $newProfile->alamat = 'Jl Kh Agus Salim , Bondowoso';
+        $newProfile->no_hp = '081225121659';
+        $newProfile->ig = 'aria_desta';
         $newProfile->save();
     }
 }

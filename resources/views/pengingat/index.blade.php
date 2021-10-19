@@ -23,7 +23,7 @@
           <div class="card-body border">
             @forelse ($pengingat as $item)  
                 <div class="row d-flex justify-content-center shadow-sm my-1">
-                    <div class="col-lg-3 col-md-2 bg-primary rounded-left text-white p-4 my-2">
+                    <div class="col-lg-3 col-md-2 bg-gradient-success rounded-left text-white p-4 my-2">
                         <div class="col-12 text-center mt-2">
                             <h4>{{ strtoupper($item->barang )}}</h4>
                         </div>

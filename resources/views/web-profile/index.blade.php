@@ -1,10 +1,9 @@
 @extends('layouts.template')
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
+<div class="d-sm-flex align-items-center justify-content-between mb-2">
   <h1 class="h3 mb-0 text-gray-800">Web Profile</h1>
 </div>
-
 <!-- Content Row -->
 <div class="row">
 
@@ -20,7 +19,7 @@
                 @method('PUT')
                 <div class="form-group">
                     <label for="link_wa">Link Whatsapp</label>
-                    <input type="number" name="link_wa" id="link_wa" class="form-control @error('link_wa') is-invalid @enderror" placeholder="ex :628xxxxxxxxxx" value="{{ old('link_wa', $profile->link_wa) }}">
+                    <input type="number" name="link_wa" id="link_wa" class="form-control @error('link_wa') is-invalid @enderror" placeholder="ex :62xxxxx" value="{{ old('link_wa', urlencode($profile->link_wa)) }}">
                     @error('link_wa')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -55,8 +54,14 @@
                 <input type="reset" value="Reset" class="btn btn-danger">
             </form>
           </div>
-        </div>
-      </div>
+          <div class="d-sm-flex align-items-center justify-content-end m-3">
+            <a href="https://wa.me/{{ $profile->link_wa }}">
+            <h2 class="fab fa-fw fa-whatsapp text-primary text-nowrap"></h2>
+            </a>
+            <span> Tap icon : Testing WA</span>
 
+          </div>
+          </div>
+      </div>
 </div>
 @endsection
