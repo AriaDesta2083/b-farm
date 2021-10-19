@@ -7,7 +7,7 @@
     <i class="fas fa-arrow-left fa-sm text-white-50"></i> Lihat Data
   </a>
 </div>
-
+<h7 class="m-4 text-danger">Pendapatan di input perminggu</h7>
 <!-- Content Row -->
 <div class="row">
 

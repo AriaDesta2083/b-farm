@@ -2,10 +2,10 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-      <div class="sidebar-brand-icon rotate-n-15">
-        <i class="fas fa-tractor"></i>
+      <div class="sidebar-brand-img">
+        <img src="image/logo/logo.png" alt="" class="rounded img-fluid">
       </div>
-      <div class="sidebar-brand-text mx-3">B-Farm</div>
+      <div class="sidebar-brand-text mx-3 text-nowrap">B-Farm</div>
     </a>
 
     <!-- Divider -->
@@ -19,15 +19,15 @@
     </li>
 
     <!-- Nav Item - Forum Menu -->
-    <li class="nav-item">
-      <a class="nav-link" href="#">
+    <li class="nav-item {{ Request::segment(1) == 'forum' || Request::segment(1) == '' ? 'active' : '' }}">
+      <a class="nav-link" href="{{ route('forum.index') }}">
         <i class="fas fa-fw fa-info"></i>
         <span>Forum</span></a>
     </li>
 
     <!-- Nav Item - Pelanggan Menu -->
-    <li class="nav-item">
-      <a class="nav-link" href="#">
+    <li class="nav-item {{ Request::segment(1) == 'pelanggan' || Request::segment(1) == '' ? 'active' : '' }}">
+      <a class="nav-link" href="{{ route('pelanggan.index') }}">
         <i class="fas fa-fw fa-users"></i>
         <span>Pelanggan</span></a>
     </li>
@@ -51,7 +51,7 @@
     <li class="nav-item {{ Request::segment(1) == 'web-profile' ? 'active' : '' }}">
       <a class="nav-link" href="{{ route('web-profile.index') }}">
         <i class="fas fa-fw fa-link"></i>
-        <span>Ubah Link</span></a>
+        <span>Ubah Web Profile</span></a>
     </li>
     
     <!-- Nav Item - Rekomendasi Menu -->

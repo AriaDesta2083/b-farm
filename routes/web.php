@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\ForumController;
+use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PendapatanController;
 use App\Http\Controllers\PengingatController;
 use App\Http\Controllers\RekomendasiController;
 use App\Http\Controllers\WebProfileController;
 use App\Http\Controllers\RiwayatController;
+use App\Models\Forum;
 use App\Models\Rekomendasi;
 use Illuminate\Support\Facades\Route;
 
@@ -37,8 +40,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('rekomendasi', RekomendasiController::class);
     Route::get('web-profile', [WebProfileController::class, 'index'])->name('web-profile.index');
     Route::put('web-profile', [WebProfileController::class, 'update'])->name('web-profile.update');
+    Route::get('forum', [ForumController::class, 'index'])->name('forum.index');
     Route::get('riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');
     Route::get('riwayat-get', [RiwayatController::class, 'show'])->name('riwayat.show');
+    Route::get('pelanggan', [PelangganController::class, 'index'])->name('pelanggan.index');
 });
 
 require __DIR__ . '/auth.php';
