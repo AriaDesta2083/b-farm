@@ -15,7 +15,7 @@ class PengingatController extends Controller
      */
     public function index()
     {
-        $this->params['pengingat'] = Pengingat::orderBy('barang', 'ASC')->get();
+        $this->params['pengingat'] = Pengingat::get();
 
         return view('pengingat.index', $this->params);
     }
@@ -56,7 +56,7 @@ class PengingatController extends Controller
         $newPengingat->deadline = $request->deadline;
 
         $newPengingat->save();
-        
+
         return redirect('kelola-keuangan/pengingat')->withStatus('Berhasil menambah data.');
     }
 

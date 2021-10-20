@@ -2,10 +2,9 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-      <div class="sidebar-brand-img">
-        <img src="image/logo/logo.png" alt="" class="rounded img-fluid">
+      <div class="sidebar-brand-icon">
+        <img src="image/logo/logo.png" alt="" class="rounded img-fluid w-50">
       </div>
-      <div class="sidebar-brand-text mx-3 text-nowrap">B-Farm</div>
     </a>
 
     <!-- Divider -->
