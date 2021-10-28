@@ -55,7 +55,7 @@
             </form>
           </div>
           <div class="d-sm-flex align-items-center justify-content-end m-3">
-            <a href="https://wa.me/{{ $profile->link_wa }}">
+            <a href="https://wa.me/{{ $profile->link_wa }} ">
             <h2 class="fab fa-fw fa-whatsapp text-primary text-nowrap"></h2>
             </a>
             <span> Tap icon : Testing WA</span>
