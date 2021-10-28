@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('get-all-rekomendasi', [ApiController::class, 'getAllRekomendasi']);
+Route::get('get-rekomendasi-by-id/{id}', [ApiController::class, 'getRekomendasiById']);
