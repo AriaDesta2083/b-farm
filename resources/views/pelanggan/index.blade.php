@@ -30,20 +30,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($pelanggan as $item) --}}
+                        @foreach ($data as $item)
                         <tr>
-                            <td class="text-center">1</td>
-                            {{-- <td class="text-center">{{ $loop->iteration }}</td> --}}
-                            <td class="text-center">Aria Desta</td>
-                            {{-- <td class="text-center">{{ $item->nama }}</td> --}}
-                            <td class="text-center">aria_desta@mail.com</td>
-                            {{-- <td class="text-center">{{ $item->email }}</td> --}}
-                            <td class="text-center">Bondowoso Jawa Timur</td>
-                            {{-- <td class="text-right">{{ $item->alamat }}</td> --}}
-                            <td class="text-center">081225121659</td>
-                            {{-- <td class="text-right">{{ $item->nohp }}</td> --}}
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $item->name }}</td>
+                            <td class="text-center">{{ $item->email }}</td>
+                            <td class="text-center">{{ $item->alamat }}</td>
+                            <td class="text-center">{{ $item->phone }}</td>
                         </tr>
-                        {{-- @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>
