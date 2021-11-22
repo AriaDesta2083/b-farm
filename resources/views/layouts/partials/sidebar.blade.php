@@ -17,11 +17,11 @@
         <span>Dashboard</span></a>
     </li>
 
-    <!-- Nav Item - Forum Menu -->
-    <li class="nav-item {{ Request::segment(1) == 'forum' || Request::segment(1) == '' ? 'active' : '' }}">
-      <a class="nav-link" href="{{ route('forum.index') }}">
+    <!-- Nav Item - Ulasan Menu -->
+    <li class="nav-item {{ Request::segment(1) == 'ulasan' || Request::segment(1) == '' ? 'active' : '' }}">
+      <a class="nav-link" href="{{ route('ulasan.index') }}">
         <i class="fas fa-fw fa-info"></i>
-        <span>Forum</span></a>
+        <span>Ulasan</span></a>
     </li>
 
     <!-- Nav Item - Pelanggan Menu -->

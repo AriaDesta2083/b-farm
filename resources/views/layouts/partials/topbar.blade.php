@@ -28,6 +28,50 @@
         </div>
       </li>
 
+      <li class="nav-item dropdown no-arrow mx-1">
+        @php
+          $notif = \App\Models\Pengingat::select(
+                                        'barang',
+                                        \DB::raw('date_add(DATE_FORMAT(created_at, "%Y-%m-%d"),interval deadline week) AS deadline'),
+                                        \DB::raw('date_sub(DATE_FORMAT(date_add(DATE_FORMAT(created_at, "%Y-%m-%d"),interval deadline week), "%Y-%m-%d"), INTERVAL 1 day) AS dead')
+                                        )
+                ->whereDate(\DB::raw('date_add(DATE_FORMAT(created_at, "%Y-%m-%d"),interval deadline week)'), date('Y-m-d'))
+                #->whereDate('created_at', date('Y-m-d'))
+                ->orderBy('deadline')
+                ->get();
+        @endphp
+        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-bell fa-fw"></i>
+          <!-- Counter - Alerts -->
+          <span class="badge badge-danger badge-counter">{{ count($notif) }}</span>
+        </a>
+        <!-- Dropdown - Alerts -->
+        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+          <h6 class="dropdown-header">
+            Notifikasi
+          </h6>
+          @forelse ($notif as $value)
+            <a class="dropdown-item d-flex align-items-center" href="#">
+              <div class="mr-3">
+                <div class="icon-circle bg-primary">
+                  <i class="fas fa-file-alt text-white"></i>
+                </div>
+              </div>
+              <div>
+                <div class="small text-gray-500">{{ $value->deadline }}</div>
+                <span class="font-weight-bold">Ayo segera beli {{ $value->barang }}.</span>
+              </div>
+            </a>
+          @empty
+            <p class="mt-2 ml-2">Belum ada notifikasi.</p>
+          @endforelse
+          <a class="dropdown-item text-center small text-gray-500" href="#">Notifikasi</a>
+        </div>
+      </li>
+      
+
+      <div class="topbar-divider d-none d-sm-block"></div>
+
       <!-- Nav Item - User Information -->
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

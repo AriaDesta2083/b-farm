@@ -31,7 +31,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('rekomendasi', 'RekomendasiController');
     Route::get('web-profile', 'WebProfileController@index')->name('web-profile.index');
     Route::put('web-profile', 'WebProfileController@update')->name('web-profile.update');
-    Route::get('forum', 'ForumController@index')->name('forum.index');
+    Route::get('ulasan', 'UlasanController@index')->name('ulasan.index');
+    Route::delete('ulasan/{id}', 'UlasanController@destroy')->name('ulasan.destroy');
     Route::get('riwayat', 'RiwayatController@index')->name('riwayat.index');
     Route::get('riwayat-get', 'RiwayatController@show')->name('riwayat.show');
     Route::get('pelanggan', 'PelangganController@index')->name('pelanggan.index');
