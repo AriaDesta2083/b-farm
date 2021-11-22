@@ -31,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        {{-- <tr>
                             <td class="text-center">1</td>
                             <td class="text-center text-nowrap">24-09-2021</td>
                             <td class="text-center">3</td>
@@ -44,8 +44,8 @@
                                 </button>
                             </form>                              
                             </td>
-                        </tr>
-                        {{-- @foreach ($ulasan as $item)
+                        </tr> --}}
+                        @foreach ($ulasan as $item)
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-right">{{ date_format($item->created_at, 'Y-m-d') }}</td>
@@ -62,7 +62,7 @@
                             </form>                              
                             </td>
                         </tr>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>
