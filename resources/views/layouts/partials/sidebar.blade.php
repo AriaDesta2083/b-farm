@@ -21,7 +21,7 @@
     <li class="nav-item {{ Request::segment(1) == 'forum' || Request::segment(1) == '' ? 'active' : '' }}">
       <a class="nav-link" href="{{ route('forum.index') }}">
         <i class="fas fa-fw fa-info"></i>
-        <span>Forum</span></a>
+        <span>Ulasan</span></a>
     </li>
 
     <!-- Nav Item - Pelanggan Menu -->

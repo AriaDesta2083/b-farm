@@ -28,7 +28,7 @@
                           <th class="text-center">#</th>
                           <th class="text-center">Tanggal</th>
                           <th class="text-center">Pendapatan</th>
-                          <th class="text-center">Keuntungan</th>
+                          <th class="text-center">Keterangan (Untung / Rugi)</th>
                           <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
