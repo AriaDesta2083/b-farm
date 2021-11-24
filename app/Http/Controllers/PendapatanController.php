@@ -42,14 +42,26 @@ class PendapatanController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'tanggal' => 'required',
+            'tanggal' => 'required|unique:pendapatan,tanggal',
             'pendapatan' => 'required',
+            'minggu' => 'not_in:0',
         ], [
             'required' => ':attribute harus diisi.',
+            'not_in' => ':attribute harus dipilih.',
+            'unique' => ':attribute sudah dipakai.',
         ], [
             'tanggal' => 'Tanggal',
-            'pendapatan' => 'Pendapatan'
+            'pendapatan' => 'Pendapatan',
+            'minggu' => 'Minggu ke',
         ]);
+
+        $this_date = date('m', strtotime($request->tanggal));
+
+        $this_month = Pendapatan::where('minggu_ke', $request->minggu)->whereMonth('tanggal', $this_date)->get();
+
+        if(count($this_month) > 0) {
+            return back()->withError('Minggu ke '.$request->minggu.' di bulan ini sudah digunakan.');
+        }
 
         $totalBarang = Pengingat::select(\DB::raw('SUM(harga / deadline) AS total'))->first()->total;
 
@@ -57,17 +69,17 @@ class PendapatanController extends Controller
         $newPendapatan->tanggal = $request->tanggal;
         $newPendapatan->pendapatan = $request->pendapatan;
         $newPendapatan->keuntungan = $request->pendapatan - $totalBarang;
+        $newPendapatan->minggu_ke = $request->minggu;
 
         $newPendapatan->save();
-
 
         $date = DateTime::createFromFormat('Y-m-d', $request->tanggal);
         $month = $date->format('m');
         $year = $date->format('Y');
 
-        $is4Month = Pendapatan::whereYear('tanggal', $year)->whereMonth('tanggal', $month)->count();
+        // $is4Month = Pendapatan::whereYear('tanggal', $year)->whereMonth('tanggal', $month)->count();
 
-        if ($is4Month == 4) {
+        if ($request->minggu == 4) {
             $totalBarangRiwayat = Pengingat::select(\DB::raw('SUM(harga / deadline * 4) AS total'))->first()->total;
 
             $pendapatan = Pendapatan::select(\DB::raw('SUM(pendapatan) AS total_pendapatan'), \DB::raw('SUM(keuntungan) AS total_keuntungan'))

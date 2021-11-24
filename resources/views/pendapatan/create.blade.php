@@ -38,6 +38,21 @@
                         </div>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="minggu">Minggu ke</label>
+                    <select name="minggu" id="minggu" class="form-control @error('minggu') is-invalid @enderror" required>
+                      <option value="0">Pilih Minggu ke</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                    @error('pendapatan')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
                 <input type="submit" value="Submit" class="btn btn-success">
                 <input type="reset" value="Reset" class="btn btn-danger">
             </form>

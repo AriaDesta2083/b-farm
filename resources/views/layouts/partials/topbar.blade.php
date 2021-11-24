@@ -36,7 +36,6 @@
                                         \DB::raw('date_sub(DATE_FORMAT(date_add(DATE_FORMAT(created_at, "%Y-%m-%d"),interval deadline week), "%Y-%m-%d"), INTERVAL 1 day) AS dead')
                                         )
                 ->whereDate(\DB::raw('date_add(DATE_FORMAT(created_at, "%Y-%m-%d"),interval deadline week)'), date('Y-m-d'))
-                #->whereDate('created_at', date('Y-m-d'))
                 ->orderBy('deadline')
                 ->get();
         @endphp

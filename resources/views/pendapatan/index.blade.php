@@ -27,6 +27,7 @@
                         <tr>
                           <th class="text-center">#</th>
                           <th class="text-center">Tanggal</th>
+                          <th class="text-center">Minggu ke</th>
                           <th class="text-center">Pendapatan</th>
                           <th class="text-center">Keterangan (Untung / Rugi)</th>
                           <th class="text-center">Aksi</th>
@@ -37,6 +38,7 @@
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $item->tanggal }}</td>
+                            <td class="text-center">{{ $item->minggu_ke }}</td>
                             <td class="text-right">Rp. {{ number_format($item->pendapatan, 2, ',', '.') }}</td>
                             <td class="text-right">Rp. {{ number_format($item->keuntungan, 2, ',', '.') }}</td>
                             <td class="align-middle">
