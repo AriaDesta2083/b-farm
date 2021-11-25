@@ -41,10 +41,16 @@ class PendapatanController extends Controller
      */
     public function store(Request $request)
     {
+        $this_date = date('m', strtotime($request->tanggal));
+
+        $this_month = Pendapatan::where('minggu_ke', $request->minggu)->whereMonth('tanggal', $this_date)->get();
+
+        $uniqueMinggu = count($this_month) > 0 ? '|unique:pendapatan,minggu' : '';
+
         $this->validate($request, [
             'tanggal' => 'required|unique:pendapatan,tanggal',
             'pendapatan' => 'required',
-            'minggu' => 'not_in:0',
+            'minggu' => 'not_in:0'.$uniqueMinggu,
         ], [
             'required' => ':attribute harus diisi.',
             'not_in' => ':attribute harus dipilih.',
@@ -54,10 +60,6 @@ class PendapatanController extends Controller
             'pendapatan' => 'Pendapatan',
             'minggu' => 'Minggu ke',
         ]);
-
-        $this_date = date('m', strtotime($request->tanggal));
-
-        $this_month = Pendapatan::where('minggu_ke', $request->minggu)->whereMonth('tanggal', $this_date)->get();
 
         if(count($this_month) > 0) {
             return back()->withError('Minggu ke '.$request->minggu.' di bulan ini sudah digunakan.');
