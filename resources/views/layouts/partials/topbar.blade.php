@@ -38,6 +38,14 @@
                 ->whereDate(\DB::raw('date_add(DATE_FORMAT(created_at, "%Y-%m-%d"),interval deadline week)'), date('Y-m-d'))
                 ->orderBy('deadline')
                 ->get();
+
+        $deleteNotif = \App\Models\Pengingat::select(
+                          'barang',
+                          \DB::raw('date_add(DATE_FORMAT(created_at, "%Y-%m-%d"),interval deadline week) AS deadline'),
+                          \DB::raw('date_sub(DATE_FORMAT(date_add(DATE_FORMAT(created_at, "%Y-%m-%d"),interval deadline week), "%Y-%m-%d"), INTERVAL 1 day) AS dead')
+                          )
+        ->whereDate(\DB::raw('date_add(DATE_FORMAT(created_at, "%Y-%m-%d"),interval deadline week)'), '<', date('Y-m-d'))
+        ->delete();
         @endphp
         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-bell fa-fw"></i>
