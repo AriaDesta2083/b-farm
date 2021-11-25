@@ -42,8 +42,12 @@ class PendapatanController extends Controller
     public function store(Request $request)
     {
         $this_date = date('m', strtotime($request->tanggal));
+        $this_year = date('Y', strtotime($request->tanggal));
 
-        $this_month = Pendapatan::where('minggu_ke', $request->minggu)->whereMonth('tanggal', $this_date)->get();
+        $this_month = Pendapatan::where('minggu_ke', $request->minggu)
+                                ->whereMonth('tanggal', $this_date)
+                                ->whereYear('tanggal', $this_year)
+                                ->get();
 
         $uniqueMinggu = count($this_month) > 0 ? '|unique:pendapatan,minggu' : '';
 
