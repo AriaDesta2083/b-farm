@@ -45,16 +45,16 @@ class PendapatanController extends Controller
         $this_year = date('Y', strtotime($request->tanggal));
 
         $this_month = Pendapatan::where('minggu_ke', $request->minggu)
-                                ->whereMonth('tanggal', $this_date)
-                                ->whereYear('tanggal', $this_year)
-                                ->get();
+            ->whereMonth('tanggal', $this_date)
+            ->whereYear('tanggal', $this_year)
+            ->get();
 
-        $uniqueMinggu = count($this_month) > 0 ? '|unique:pendapatan,minggu' : '';
+        $uniqueMinggu = count($this_month) > 0 ? '|unique:pendapatan,minggu_ke' : '';
 
         $this->validate($request, [
             'tanggal' => 'required|unique:pendapatan,tanggal',
             'pendapatan' => 'required',
-            'minggu' => 'not_in:0'.$uniqueMinggu,
+            'minggu' => 'not_in:0' . $uniqueMinggu,
         ], [
             'required' => ':attribute harus diisi.',
             'not_in' => ':attribute harus dipilih.',
@@ -62,11 +62,11 @@ class PendapatanController extends Controller
         ], [
             'tanggal' => 'Tanggal',
             'pendapatan' => 'Pendapatan',
-            'minggu' => 'Minggu ke',
+            'minggu' => 'Minggu ini',
         ]);
 
-        if(count($this_month) > 0) {
-            return back()->withError('Minggu ke '.$request->minggu.' di bulan ini sudah digunakan.');
+        if (count($this_month) > 0) {
+            return back()->withError('Minggu ke ' . $request->minggu . ' di bulan ini sudah digunakan.');
         }
 
         $totalBarang = Pengingat::select(\DB::raw('SUM(harga / deadline) AS total'))->first()->total;
